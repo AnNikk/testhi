@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VK Search Error{% endblock %}
+
+{% block body %}
+
+    <div class="container text-center">
+        <div class="row pt-3">
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <div class="row pt-3 pb-3">
+            <div class="col-12">
+                <a href="{{ url('homepage') }}">Вернуться к поиску</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %} 
+

@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}VK Search News{% endblock %}
+
+{% block body %}
+
+    {#  { dump(nnews) }  #}
+
+
+    <div class="container text-left">
+        <div class="row pt-3">
+            <div class="col-4 text-right">
+                {{ nnews.date|date('d.m.Y H:i:s') }}
+            </div>
+            <div class="col-8 text-left">
+                {{ nnews.name }}
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-12">
+                {{ nnews.text|nl2br }}
+            </div>
+        </div>
+    </div>
+
+    {% if nnews.attachments is defined %}
+        {% set mmax = 0 %}
+        <div class="container text-left">
+            <div class="row pt-3">
+            {% for attc in nnews.attachments %}
+                {% if attc.photo is defined %}
+                    <div class="col-xs-2 mr-1">
+                    {# { dump(attc) } #}
+                    <a href="#modalPhoto{{ attc.photo.id }}" data-toggle="modal">
+                        <img src="{{ attc.photo.minphoto.url }}" class="img-fluid" />
+                    </a>
+
+                    <div id="modalPhoto{{ attc.photo.id }}" class="modal fade">
+                      <div class="modal-dialog">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ attc.photo.maxphoto.url }}" class="img-fluid" />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        </div>
+                      </div>
+                    </div>
+        
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    
+    <div class="container text-left">
+        <div class="row pt-3">
+            <div class="col-12">
+                Лайков: {{ nnews.likes.count }}
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <div class="row pt-3 pb-3">
+            <div class="col-6">
+                <a href="{{ url('homepage') }}">Вернуться к поиску</a>
+            </div>
+            <div class="col-6">
+                <a href="javascript:history.back()">Вернуться к списку новостей</a>
+            </div>
+        </div>
+    </div>
+       
+{% endblock %} 
